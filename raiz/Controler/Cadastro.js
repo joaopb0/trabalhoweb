@@ -1,3 +1,4 @@
+import { json } from "express";
 import { openDb } from "../CfgDB.js";
 
 export async function createTable() {
@@ -7,7 +8,23 @@ export async function createTable() {
 }
 
 export async function insertCadastro(req, res) {
-    let cadastro = req.body;
+    let cadastro = req.body
+    var nome = req.body.nome
+    var sobrenome = req.body.sobrenome
+    var email = req.body.email
+    var senha = req.body.senha
+    if (nome == ''){
+       return res.status(400).json({error: "Nome inválido"});
+    }
+    else if (sobrenome == ''){
+        return res.status(400).json({error: "Sobrenome inválido"})
+    }
+    else if (email == ''){
+        return res.status(400).json({error: "Email inválido"})
+    }
+    else if (senha == ''){
+        return res.status(400).json({error: "Senha inválida"})
+    }
     openDb().then(db => {
         db.run('INSERT INTO Cadastro (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)', [cadastro.nome, cadastro.sobrenome, cadastro.email, cadastro.senha]);
     });
@@ -18,12 +35,28 @@ export async function insertCadastro(req, res) {
 
 export async function updateCadastro(req, res) {
     let cadastro = req.body;
+    var nome = req.body.nome
+    var sobrenome = req.body.sobrenome
+    var email = req.body.email
+    var senha = req.body.senha
+    if (nome == ''){
+       return res.status(400).json({error: "Alteração inválida"});
+    }
+    else if (sobrenome == ''){
+        return res.status(400).json({error: "Alteração inválida"})
+    }
+    else if (email == ''){
+        return res.status(400).json({error: "Alteração inválida"})
+    }
+    else if (senha == ''){
+        return res.status(400).json({error: "Alteração inválida"})
+    }
     openDb().then(db => {
         db.run('UPDATE Cadastro SET nome=?, sobrenome=?, email=?, senha=? WHERE id=?', [cadastro.nome, cadastro.sobrenome, cadastro.email, cadastro.senha, cadastro.id]);
     });
-    res.json({
+   res.json({
         "statusCode": 200
-    })
+    });
 }
 
 export async function selectCadastros(req, res) {

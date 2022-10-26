@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createTable, insertCadastro, updateCadastro, selectCadastros, selectCadastro, deleteCadastro } from './Controler/cadastro.js';
+import { createTable, insertCadastro, updateCadastro, selectCadastros, selectCadastro, deleteCadastro,} from './Controler/cadastro.js';
 
 const router = Router();
 
