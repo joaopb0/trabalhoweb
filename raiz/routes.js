@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { appendFile } from "fs";
 import { createTable, insertCadastro, updateCadastro, selectCadastros, selectCadastro, deleteCadastro,} from './Controler/cadastro.js';
 
 const router = Router();

@@ -3,7 +3,7 @@ import { openDb } from "../CfgDB.js";
 
 export async function createTable() {
     openDb().then(db => {
-        db.exec('CREATE TABLE IF NOT EXISTS Cadastro (ID INTEGER PRIMARY KEY, nome TEXT, sobrenome TEXT, email TEXT,senha TEXT)')
+        db.exec('CREATE TABLE IF NOT EXISTS Cadastro (ID INTEGER PRIMARY KEY, nome TEXT, sobrenome TEXT, email TEXT,senha TEXT, telefone TEXT)')
     })
 }
 
@@ -13,6 +13,7 @@ export async function insertCadastro(req, res) {
     var sobrenome = req.body.sobrenome
     var email = req.body.email
     var senha = req.body.senha
+    var telefone = req.body.telefone
     if (nome == ''){
        return res.status(400).json({error: "Nome inválido"});
     }
@@ -25,8 +26,11 @@ export async function insertCadastro(req, res) {
     else if (senha == ''){
         return res.status(400).json({error: "Senha inválida"})
     }
+    else if (telefone == ''){
+        return res.status(400).json({error: "Telefone inválido"})
+    }
     openDb().then(db => {
-        db.run('INSERT INTO Cadastro (nome, sobrenome, email, senha) VALUES (?, ?, ?, ?)', [cadastro.nome, cadastro.sobrenome, cadastro.email, cadastro.senha]);
+        db.run('INSERT INTO Cadastro (nome, sobrenome, email, senha, telefone) VALUES (?, ?, ?, ?, ?)', [cadastro.nome, cadastro.sobrenome, cadastro.email, cadastro.senha, cadastro.telefone]);
     });
     res.json({
         "statusCode": 200
@@ -39,6 +43,7 @@ export async function updateCadastro(req, res) {
     var sobrenome = req.body.sobrenome
     var email = req.body.email
     var senha = req.body.senha
+    var telefone = req.body.telefone
     if (nome == ''){
        return res.status(400).json({error: "Alteração inválida"});
     }
@@ -51,8 +56,11 @@ export async function updateCadastro(req, res) {
     else if (senha == ''){
         return res.status(400).json({error: "Alteração inválida"})
     }
+    else if (telefone == ''){
+        return res.status(400).json({error: "Alteração inválida"})
+    }
     openDb().then(db => {
-        db.run('UPDATE Cadastro SET nome=?, sobrenome=?, email=?, senha=? WHERE id=?', [cadastro.nome, cadastro.sobrenome, cadastro.email, cadastro.senha, cadastro.id]);
+        db.run('UPDATE Cadastro SET nome=?, sobrenome=?, email=?, senha=?, telefone=? WHERE id=?', [cadastro.nome, cadastro.sobrenome, cadastro.email, cadastro.senha, cadastro.telefone, cadastro.id]);
     });
    res.json({
         "statusCode": 200
