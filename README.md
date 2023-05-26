@@ -10,3 +10,4 @@ a aplicação está hospedada na porta localhost:3000 ou https://localhost:3001/
 imagens de exemplo: https://drive.google.com/drive/folders/1GKW1FgGQa9U94xWQhVGahJAn9lUKe8Kc?usp=sharing
 
 foi utilizado o SQLite3
+casa 
